@@ -78,19 +78,15 @@ export function addUploadingDocs(identificator, docFiles) {
   };
 }
 
-export function uploadFiles(identificator, url, files, type, data, concurrency = 2) {
+export function uploadFiles(identificator, url, files, type, data, fileAPIOptions) {
   return params => {
     const dispatch = typeof params === 'function' ? params : params.dispatch;
-    const uploadFilePromise = Promise.map(
-      files,
-      file => uploadFile(dispatch, url, identificator, file, data),
-      { concurrency }
-    );
+    const allFilePromises = files.map(file => uploadFile(dispatch, url, identificator, file, data, fileAPIOptions));
 
     return {
       type: FILE_UPLOAD_MULTIPLE_FILE_UPLOAD,
       payload: {
-        promise: uploadFilePromise
+        promise: Promise.all(allFilePromises)
       }
     };
   };
