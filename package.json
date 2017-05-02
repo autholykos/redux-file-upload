@@ -50,11 +50,7 @@
     "eslint-plugin-import": "^1.0.3",
     "eslint-plugin-jsx-a11y": "^1.0.4",
     "eslint-plugin-react": "^5.0.1",
-    "react": ">=0.13",
     "react-addons-test-utils": ">=0.14",
-    "react-dom": "^15.5.4",
-    "react-redux": ">=4",
-    "redux": ">=3",
     "rimraf": "^2.4.3"
   },
   "dependencies": {
@@ -67,9 +63,9 @@
     "react-pure-render": ">=1"
   },
   "peerDependencies": {
-    "react": ">=0.13",
+    "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-redux": ">=4",
-    "redux": ">=3"
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0"
   }
 }

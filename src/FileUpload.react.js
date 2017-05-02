@@ -101,11 +101,11 @@ export default class FileUpload extends Component {
 
     if (!!imageFiles.length) {
       addUploadingImages(id, imageFiles);
-      uploadFiles(id, url, imageFiles, 'image', data);
+      uploadFiles(id, url, imageFiles, 'image', data, fileAPIOptions);
     }
     if (!!docFiles.length) {
       addUploadingDocs(id, docFiles);
-      uploadFiles(id, url, docFiles, 'document', data);
+      uploadFiles(id, url, docFiles, 'document', data, fileAPIOptions);
     }
   }
 
