@@ -1,5 +1,4 @@
 import isServer from 'detect-node';
-import Promise from 'bluebird';
 import { isDoc, isImage } from './helpers';
 
 const FileAPI = !isServer ? require('fileapi') : null;

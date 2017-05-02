@@ -55,7 +55,6 @@
     "rimraf": "^2.4.3"
   },
   "dependencies": {
-    "bluebird": ">=3",
     "core-decorators": ">=0.12",
     "detect-node": ">=2",
     "fileapi": ">=2",
