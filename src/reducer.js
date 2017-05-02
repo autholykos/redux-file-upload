@@ -3,19 +3,17 @@ import UploadingDocument from './UploadingDocument';
 import UploadingImage from './UploadingImage';
 import { List, Map, Record } from 'immutable';
 
-const InitialState = Record({
+const initialState = new Record({
   documents: Map(),
   images: Map()
 });
-const initialState = new InitialState;
 
 function revive() {
-  return initialState.merge({
-  });
+  return initialState.merge({});
 }
 
 export default function fileUploadReducer(state = initialState, action) {
-  if (!(state instanceof InitialState)) return revive(state);
+  if (!(state instanceof Record)) return revive(state);
 
   switch (action.type) {
 

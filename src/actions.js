@@ -1,7 +1,5 @@
-import isServer from 'detect-node';
 import { isDoc, isImage } from './helpers';
-
-const FileAPI = !isServer ? require('fileapi') : null;
+import { Image, upload } from 'fileapi'
 
 export const THUMBNAIL_WIDTH = 200;
 export const THUMBNAIL_HEIGHT = 200;
@@ -23,7 +21,7 @@ function getThumbnails(imageFiles) {
 
 function getImageThumbnail(imageFile) {
   return new Promise((resolve, reject) => {
-    FileAPI.Image(imageFile)
+    Image(imageFile)
     .preview(THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT)
     .get((err, canvas) => {
       if (err) reject(err);
@@ -36,15 +34,29 @@ function getImageThumbnail(imageFile) {
   });
 }
 
-function uploadFile(dispatch, url, identificator, file, data, fileAPIOptions) {
-  return new Promise(resolve => {
-    FileAPI.upload({
-      ...fileAPIOptions,
+function uploadFile(dispatch, url, identificator, file, data, fileApiOptions) {
+  const { cors = false, ...rest } = fileApiOptions
+  let { headers } = fileApiOptions
+  
+  if(cors){
+    headers = { 
+      ...headers,
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
+      'Access-Control-Allow-Headers': '*'
+    }
+
+  }
+
+  return new Promise(complete => {
+    upload({
+      headers,
+      ...rest,
       data,
+      complete,
       files: {
         file
       },
-      complete: resolve,
       fileprogress: (...args) => dispatch(fileProgress(identificator, ...args)),
       filecomplete: (...args) => dispatch(fileComplete(identificator, ...args)),
       url,

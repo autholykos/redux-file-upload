@@ -1,14 +1,11 @@
 import * as actions from './actions';
 import autobind from 'core-decorators/lib/autobind';
 import Component from 'react-pure-render/component';
-import isServer from 'detect-node';
-import Promise from 'bluebird';
 import Radium from 'radium';
 import React, { PropTypes as RPT } from 'react';
 import { connect } from 'react-redux';
 import { filterAllowedFiles, filterDocFiles, filterImageFiles } from './helpers';
-
-const FileAPI = !isServer ? Promise.promisifyAll(require('fileapi')) : null;
+import { event: fileApiEvent } from 'fileapi'
 
 @connect(null, actions)
 @Radium
@@ -36,8 +33,8 @@ export default class FileUpload extends Component {
   };
 
   componentDidMount() {
-    FileAPI.event.on(this.refs.fileInput, 'change', this.handleFileChange);
-    FileAPI.event.dnd(this.refs.fileInput, this.handleDragHover, this.handleFileChange);
+    fileApiEvent.on(this.refs.fileInput, 'change', this.handleFileChange);
+    fileApiEvent.dnd(this.refs.fileInput, this.handleDragHover, this.handleFileChange);
     document.addEventListener('drop', this.preventDropEvent);
     document.addEventListener('dragover', this.preventDragOverEvent);
     document.addEventListener('dragenter', this.handleDocumentDragEnter);
@@ -45,8 +42,8 @@ export default class FileUpload extends Component {
   }
 
   componentWillUnmount() {
-    FileAPI.event.off(this.refs.fileInput, 'change', this.handleFileChange);
-    FileAPI.event.dnd.off(this.refs.fileInput, this.handleDragHover, this.handleFileChange);
+    fileApiEvent.off(this.refs.fileInput, 'change', this.handleFileChange);
+    fileApiEvent.dnd.off(this.refs.fileInput, this.handleDragHover, this.handleFileChange);
     document.removeEventListener('drop', this.preventDropEvent);
     document.removeEventListener('dragover', this.preventDragOverEvent);
     document.removeEventListener('dragenter', this.handleDocumentDragEnter);
