@@ -28,6 +28,7 @@ export default class FileUpload extends Component {
     identifier:           RPT.string,
     multiple:             RPT.bool,
     url:                  RPT.string.isRequired,
+    fileAPIOptions:       RPT.object
   };
 
   state = {
@@ -84,7 +85,8 @@ export default class FileUpload extends Component {
       dropzoneId,
       identifier,
       uploadFiles,
-      url
+      url,
+      fileAPIOptions
      } = this.props;
 
     const { dragCount } = this.state;
@@ -146,7 +148,6 @@ export default class FileUpload extends Component {
       </div>
     );
   }
-
 }
 
 const styles = {

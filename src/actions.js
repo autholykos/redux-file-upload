@@ -37,9 +37,10 @@ function getImageThumbnail(imageFile) {
   });
 }
 
-function uploadFile(dispatch, url, identificator, file, data) {
+function uploadFile(dispatch, url, identificator, file, data, fileAPIOptions) {
   return new Promise(resolve => {
     FileAPI.upload({
+      ...fileAPIOptions,
       data,
       files: {
         file
