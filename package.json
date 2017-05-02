@@ -6,7 +6,7 @@
   "author": "Blueberry",
   "repository": {
     "type": "git",
-    "url": "https://github.com/autholykos/redux-file-upload.git"
+    "url": "https://github.com/autholykos/redux-file-upload-header.git"
   },
   "scripts": {
     "ava": "ava",
